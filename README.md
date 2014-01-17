@@ -2,7 +2,7 @@ Scissors-Continued-Yet-Again
 ============================
 
 A fork of the Scissors Continued plugin for WordPress.
-Scissors Continued Yet Again enhances WordPress' handling of images by introducing cropping, resizing, rotating, and watermarking functionality....
+Scissors Continued Yet Again enhances WordPress' handling of images by introducing cropping, resizing, rotating, and watermarking functionality.
 
 Contributors: stephanreiter, samuelaguilera, huiz, victorjonsson, znoid, patrikberglund, aaslun
 Tags: admin, media, images, gallery, library, upload, resize, crop, watermark, rotate
