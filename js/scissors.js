@@ -182,11 +182,13 @@ function scissorsPostQuery(id, data) {
 						thumbnail = thumbnail.find('.thumbnail');
 
 						var imgSrc = thumbnail.attr('src');
-						var randIndex = imgSrc.indexOf('?rand=');
-						if(randIndex >= 0) imgSrc = imgSrc.substr(0, randIndex); // strip existing rand
-						imgSrc += '?rand=' + toInt(Math.random() * 1000000);
+                        if(imgSrc) {
+                            var randIndex = imgSrc.indexOf('?rand=');
+                            if(randIndex >= 0) imgSrc = imgSrc.substr(0, randIndex); // strip existing rand
+                            imgSrc += '?rand=' + toInt(Math.random() * 1000000);
 
-						thumbnail.attr('src', imgSrc);
+                            thumbnail.attr('src', imgSrc);
+                        }
 					}
 				}
 			} else {

@@ -878,15 +878,18 @@ add_action('post-html-upload-ui', 'scissors_post_upload_ui');
 
 // Manual cropping and resizing functionality ---------------------------------
 
-function scissors_admin_head()
-{
-	if(strstr($_SERVER['REQUEST_URI'], 'media'))
+function scissors_admin_head($hook) {
+
+    if( defined('PREVENT_SCISSORS_JS') )
+      return;
+    
+	if(($hook == 'post.php') || ($hook == 'post-new.php'))
 	{
 		global $scissors_dirname;
-		
+
 		wp_enqueue_script('scissors_crop', '/' . PLUGINDIR . '/'.$scissors_dirname.'/js/jquery.Jcrop.js', array('jquery') );
 		wp_enqueue_script('scissors_js', '/' . PLUGINDIR . '/'.$scissors_dirname.'/js/scissors.js' );
-		
+
 		$thisUrl = admin_url('admin-ajax.php');
 		echo "<!-- JS loaded for Scissors in media library -->\n";
 		echo "<script type='text/javascript'>\n/* <![CDATA[ */\n";
@@ -1398,7 +1401,7 @@ function scissors_action()
 }
 
 add_filter('media_meta', 'scissors_media_meta', 99, 2);
-add_action('admin_print_scripts', 'scissors_admin_head');
+add_action('admin_enqueue_scripts', 'scissors_admin_head');
 add_action('admin_print_styles', 'scissors_styles');
 add_action('wp_ajax_scissorsCrop', 'scissors_action');
 add_action('wp_ajax_scissorsResize', 'scissors_action');
