@@ -880,6 +880,8 @@ add_action('post-html-upload-ui', 'scissors_post_upload_ui');
 
 function scissors_admin_head()
 {
+	if(strstr($_SERVER['REQUEST_URI'], 'media'))
+	{
 		global $scissors_dirname;
 		
 		wp_enqueue_script('scissors_crop', '/' . PLUGINDIR . '/'.$scissors_dirname.'/js/jquery.Jcrop.js', array('jquery') );
@@ -901,6 +903,7 @@ function scissors_admin_head()
 		echo "\n}\n";
 		echo "/* ]]> */\n</script>\n";
 		echo "<!-- End of JS loaded for Scissors in media library -->\n";
+	}
 }
 
 function scissors_styles()
@@ -1132,7 +1135,6 @@ function scissors_crop($post, $srcfile, $src)
 {
 	$x = intval($_POST['x']); $y = intval($_POST['y']);
 	$w = intval($_POST['w']); $h = intval($_POST['h']);
-    $intermediate = '';
 	if($x >= 0 && $y >= 0 && $w > 0 && $h > 0)
 	{
 		$fullfile = get_attached_file($post->ID);
@@ -1271,7 +1273,7 @@ function scissors_crop($post, $srcfile, $src)
 			$msg = __('Failed to allocate memory.', 'scissors');
 
 		// cleanup temporary file
-		if($intermediate)
+		if( isset($intermediate) )
 			unlink($dstfile);
 		return $msg;
 	}

@@ -144,7 +144,8 @@ function scissorsPostQuery(id, data) {
 		type: 'POST', url: scissors.ajaxUrl, data: data,
 		success: function(msg) {
 			var m = msg.split(';');
-			if(m.length == 2 && m[0] == 'done') {
+
+			if(m.length == 2 && jQuery.trim(m[0]) == 'done') {
 				var s = m[1].split('+');
 				for(var i = 0; i < s.length; i++) {
 					if(s[i] == '*') continue;
@@ -212,7 +213,6 @@ function scissorsCrop(id, nonce) {
 			});
 		});
 	}
-    alert('sgdgg');
 	return false;
 }
 
