@@ -912,9 +912,9 @@ function scissors_admin_head($hook) {
 function scissors_styles()
 {
 	global $scissors_dirname;
-	wp_register_style('jcrop_style', '/' .PLUGINDIR . "/$scissors_dirname/css/jquery.Jcrop.css");
-	wp_register_style('scissors_style', '/' .PLUGINDIR . "/$scissors_dirname/css/scissors.css");
-
+	wp_register_style('jcrop_style', plugins_url( "css/jquery.Jcrop.css", __FILE__ ) );
+	wp_register_style('scissors_style', plugins_url( "css/scissors.css", __FILE__ ) );
+	
 	wp_enqueue_style('jcrop_style');
 	wp_enqueue_style('scissors_style');
 	wp_enqueue_style('thickbox');
