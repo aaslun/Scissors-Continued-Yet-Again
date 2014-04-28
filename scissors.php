@@ -400,7 +400,7 @@ function scissors_get_postid_from_fullfilename($filename)
 {
 	global $wpdb;
 	$relfile = scissors_get_relative_filepath($filename);
-	$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_value = %s LIMIT 1", $relfile));
+	$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1", $relfile));
 	return ($post != null) ? $post->post_id : FALSE;
 }
 
@@ -652,7 +652,7 @@ function scissors_rebuild_watermark_meta($image, $mime_type, $postId)
 function scissors_get_postid_from_metadata($metadata)
 {
 	global $wpdb;
-	$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_value = %s LIMIT 1", $metadata['file']));
+	$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1", $metadata['file']));
 	return ($post != null) ? $post->post_id : FALSE;
 }
 
@@ -1446,7 +1446,7 @@ class Scissors
 			$url = str_replace($match[1], '', $url);
 
 		global $wpdb;
-		$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_value = %s LIMIT 1", $url));
+		$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1", $url));
 		return ($post != null) ? $post->post_id : FALSE;
 	}
 
