@@ -770,11 +770,7 @@ $.Jcrop = function(obj,opt)
 				case 40: doNudge(e,0,nudge); break;
 
 				case 27: Selection.release(); break;
-
-				case 9: return true;
 			}
-
-			return nothing(e);
 		};
 		/*}}}*/
 		
