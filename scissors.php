@@ -152,10 +152,12 @@ function scissors_get_fullpath_from_metadata($metadata)
 
 function scissors_resize_auto($metadata)
 {
+    if( empty($metadata['width']) || empty($metadata['height']) ) {
+        return $metadata;
+    }
+
 	$srcW = intval($metadata['width']);
 	$srcH = intval($metadata['height']);
-	if($srcW <= 0 || $srcH <= 0)
-		return $metadata; // image dimensions are fishy ...
 
 	// skip full if temporarily disabled
 	if(array_key_exists('scissorsSkipFullResize', $_REQUEST) && intval($_REQUEST['scissorsSkipFullResize']) != 0)
@@ -651,6 +653,9 @@ function scissors_rebuild_watermark_meta($image, $mime_type, $postId)
 
 function scissors_get_postid_from_metadata($metadata)
 {
+    if( empty($metadata) )
+        return false;
+    
 	global $wpdb;
 	$post = $wpdb->get_row($wpdb->prepare("SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1", $metadata['file']));
 	return ($post != null) ? $post->post_id : FALSE;
